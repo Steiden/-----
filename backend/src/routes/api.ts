@@ -38,29 +38,29 @@ router.post(
 			// Отправка в нейронку
 			const messages: MistralResponseContent[] = [];
 
-			const time1 = new Date();
+			const time1 = Date.now() / 1000;
 			console.log("Sending first message...");
 			messages.push(
 				await sendToMistral(
 					"Учитывай при проверке правила синтаксиса языка",
-					"Проверь этот программный код на соответствие заданным правилам",
+					"Проверь этот программный код на соответствие заданным правилам. В ответе опиши только ошибки, связанные с некорректным синтаксисом.",
 					fileContent
 				)
 			);
-			console.log("Time to send first message: " + (new Date().getSeconds() - time1.getSeconds()) + " seconds");
+			console.log("Time to send first message: " + Math.floor(Date.now() / 1000 - time1) + " seconds");
 
-			const time2 = new Date();
+			const time2 = Date.now() / 1000;
 			console.log("Sending second message...");
 			messages.push(
 				await sendToMistral(
 					"Учитывай при проверке корректное именование переменных, функций и другого." +
 						"Именование должно быть осмысленное и подходить по контексту программного кода." +
 						"Не ДОЛЖНО быть ошибок в именах переменных, функций и другого.",
-					"Проверь этот программный код на соответствие заданным правилам.",
+					"Проверь этот программный код на соответствие заданным правилам. В ответе опиши только ошибки, связанные с некорректным именованием.",
 					fileContent
 				)
 			);
-			console.log("Time to send second message: " + (new Date().getSeconds() - time2.getSeconds()) + " seconds");
+			console.log("Time to send second message: " + Math.floor(Date.now() / 1000 - time2) + " seconds");
 
 			console.log("Sending response...");
 
